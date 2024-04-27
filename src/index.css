@@ -19,4 +19,7 @@
   .nav::after {
     @apply content-[''] absolute bg-yellow-500 h-[2px] w-0 left-0 -bottom-[5px] rounded-xl hover:w-full hover:duration-300;
   }
+  .product {
+    @apply flex place-items-center mb-6;
+  }
 }
