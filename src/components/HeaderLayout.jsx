@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 export default function HeaderLayout() {
   return (
-    <header className="flex flex-col items-center mt-5">
+    <header className="flex flex-col items-center mt-5 mb-5">
       <h1 className="text-5xl text-green-700 font-bold">MicroFied</h1>
       <ul className="flex gap-3 text-2xl  ">
         <li>

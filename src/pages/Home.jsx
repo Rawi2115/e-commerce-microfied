@@ -5,7 +5,7 @@ import { SiArduino } from "react-icons/si";
 import { NavLink } from "react-router-dom";
 export default function Home() {
   return (
-    <div className="px-4 text-center mt-8">
+    <div className="px-4 text-center">
       <h2 className="text-3xl">
         Your best destination for{" "}
         <span className="text-green-700">microchips</span> ,{" "}

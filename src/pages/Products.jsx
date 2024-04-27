@@ -10,10 +10,27 @@ export default function Products() {
     : data;
   const productElements = displayedProducts.map((product) => {
     return (
-      <Link to={product.id} key={product.id} className="product">
-        <img className="max-w-32" src={product.productImg} alt={product.name} />
-        <p>{product.name}</p>
-        <p>{product.price}</p>
+      <Link
+        state={{ search: `?${searchParams.toString()}` }}
+        to={product.id}
+        key={product.id}
+        className="product"
+      >
+        <img className="max-w-28" src={product.productImg} alt={product.name} />
+        <div className="flex flex-col gap-5">
+          <p
+            className={
+              product.productType == "arduino"
+                ? "text-sky-700"
+                : product.productType == "raspberry"
+                ? "text-rose-700"
+                : "text-lime-700"
+            }
+          >
+            {product.name}
+          </p>
+          <p className="text-white">Price: {product.price}</p>
+        </div>
       </Link>
     );
   });
@@ -31,19 +48,19 @@ export default function Products() {
     <div className="">
       <div className="flex flex-wrap justify-center px-2  gap-2">
         <button
-          className="rounded-xl px-3 bg-sky-600 text-white"
+          className="rounded-xl px-3 bg-sky-600 text-white hover:scale-110 duration-300"
           onClick={() => handleFilter("type", "arduino")}
         >
           Arduino
         </button>
         <button
-          className="rounded-xl bg-rose-700 px-3 text-white "
+          className="rounded-xl bg-rose-700 px-3 text-white hover:scale-110 duration-300 "
           onClick={() => handleFilter("type", "raspberry")}
         >
           Raspberry
         </button>
         <button
-          className="rounded-xl px-3 bg-lime-700 text-white "
+          className="rounded-xl px-3 bg-lime-700 text-white hover:scale-110 duration-300 "
           onClick={() => handleFilter("type", "parts")}
         >
           Parts | components
@@ -57,7 +74,7 @@ export default function Products() {
           </button>
         )}
       </div>
-      <div className="gird sm:grid-cols-2 place-items-center mt-6 px-5">
+      <div className="grid gap-5 max-w-6xl justify-center items-center mx-auto mt-6 px-5 ">
         {" "}
         {productElements}
       </div>
