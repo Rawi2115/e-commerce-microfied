@@ -1,19 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import data from "../data";
 import { useParams, useLocation, Link } from "react-router-dom";
 export default function ProductDetails() {
   const { id } = useParams();
   const location = useLocation();
-
-  const productElement = data.filter((product) => product.id == id)[0];
+  const [product, setProduct] = useState();
+  const [cart, setCart] = useState(
+    JSON.parse(window.localStorage.getItem("cart")) || []
+  );
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setProduct((prevProduct) => {
+      return data.filter((product) => product.id == id)[0];
+    });
+  }, [id]);
+  const productElement = product;
 
   const search = location.state?.search || "";
 
-  console.log(search);
-  function handleCart() {}
+  function handleCart() {
+    setLoading(true);
+    setTimeout(
+      () =>
+        setCart((prevCart) => {
+          const existingProductIndex = prevCart.findIndex(
+            (item) => item.id === product.id
+          );
+          let newCart;
+          if (existingProductIndex !== -1) {
+            newCart = [...prevCart];
+            newCart[existingProductIndex].quantity += 1;
+          } else {
+            newCart = [...prevCart, { ...product, quantity: 1 }];
+          }
+          localStorage.setItem("cart", JSON.stringify(newCart));
+          setLoading(false);
+          return newCart;
+        }),
+      500
+    );
+  }
 
   return productElement ? (
-    <div className="mx-auto">
+    <div className="mx-auto max-w-72 md:max-w-md">
       <Link to={`..${search}`} relative="path" className="">
         &larr;{" "}
         <span>Back to {search ? search.split("=")[1] : "all"} Products</span>
@@ -41,10 +70,11 @@ export default function ProductDetails() {
           Price:{productElement.price}
         </p>
         <button
-          onClick={() => handleCart()}
+          onClick={handleCart}
           className="rounded-xl bg-lime-700 text-white px-3"
+          disabled={loading}
         >
-          Add to Cart
+          {loading ? "...Adding to cart" : "Add to Cart"}
         </button>
       </div>
     </div>

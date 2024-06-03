@@ -8,6 +8,9 @@ export default {
       fontFamily: {
         Jersey: ['"Jersey 10"', ...defaultTheme.fontFamily.sans],
       },
+      gridTemplateColumns: {
+        "auto-fit": "repeat(auto-fill,minmax(130px,1fr))",
+      },
     },
   },
   plugins: [],

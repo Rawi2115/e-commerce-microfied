@@ -11,15 +11,16 @@
 
 @layer components {
   #root {
-    @apply flex flex-col min-h-screen font-Jersey uppercase bg-gray-950 text-yellow-500;
+    @apply flex flex-col min-h-screen font-Jersey uppercase bg-gray-900 text-yellow-500 gap-10 justify-between;
   }
   .nav {
     @apply relative tracking-[-1px];
   }
+
   .nav::after {
     @apply content-[''] absolute bg-yellow-500 h-[2px] w-0 left-0 -bottom-[5px] rounded-xl hover:w-full hover:duration-300;
   }
   .product {
-    @apply flex gap-3 place-items-center mb-6;
+    @apply grid  place-items-center py-4 px-2 min-w-full bg-white rounded-md min-h-full duration-300 md:hover:scale-110;
   }
 }
