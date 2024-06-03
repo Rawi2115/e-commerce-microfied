@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 export default function Checkout() {
   const [cart, setCart] = useState(
     JSON.parse(window.localStorage.getItem("cart")) || []
   );
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setTotal((prevTotal) => {
+      let price = 0;
+      cart.forEach((product) => {
+        price +=
+          parseFloat(product.price.replace("$", "")) *
+          parseFloat(product.quantity);
+      });
+      return price;
+    });
+  }, [cart]);
   function handleRemove(id) {
     setCart((prevCart) => {
       let newCart = [...prevCart];
@@ -18,6 +30,11 @@ export default function Checkout() {
       localStorage.setItem("cart", JSON.stringify(newCart));
       return newCart;
     });
+  }
+  function handlePurchase() {
+    setCart([]);
+    localStorage.removeItem("cart");
+    alert("your transaction has been completed successfully");
   }
   const productElements = cart.map((product) => {
     return (
@@ -59,8 +76,19 @@ export default function Checkout() {
     );
   });
   return cart.length ? (
-    <div className="px-3 gap-5 grid grid-cols-auto-fit mx-auto place-items-center justify-center max-w-2xl">
-      {productElements}
+    <div>
+      <div className="px-3 gap-5 grid grid-cols-auto-fit mx-auto place-items-center justify-center max-w-2xl">
+        {productElements}
+      </div>
+      <form className="mx-auto mt-10 flex flex-col items-center" action="">
+        <h2 className="text-center  text-2xl">Your total is: ${total}</h2>
+        <button
+          onClick={() => handlePurchase()}
+          className="py-2 px-8 text-lg text-white rounded-lg bg-green-700  "
+        >
+          Purchase
+        </button>
+      </form>
     </div>
   ) : (
     <h2 className="text-center text-3xl">your cart is empty</h2>
