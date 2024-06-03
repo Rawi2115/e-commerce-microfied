@@ -1,6 +1,6 @@
-# React + Vite
+# E-Commerce Mock
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is an E-Commerece mock website for digital electronics internet store which you can checkout by clicking (here)[https://microfied.netlify.app]
 
 Currently, two official plugins are available:
 
